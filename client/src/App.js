@@ -1,41 +1,41 @@
-import React, {Component} from 'react'
-import './css/App.css';
-import logo from './logo.svg'
-import Uploader from './components/Uploader'
-import Images from './components/Images'
-import {__LoadImages, __DeleteAll} from './utils/CloudService'
+import React, { Component } from "react";
+import "./css/App.css";
+import logo from "./logo.svg";
+import Uploader from "./components/Uploader";
+import Images from "./components/Images";
+import { __LoadImages, __DeleteAll } from "./utils/CloudService";
 
 class App extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
-      imgUrls: []
-    }
+      imgUrls: [],
+    };
   }
 
   componentDidMount() {
-    this.setImages()
+    this.setImages();
   }
 
   setImages = async () => {
     try {
-        const images = await __LoadImages()
-        this.setState({imgUrls: images})
-    } 
-    catch(err) { throw err }
-  }
+      const images = await __LoadImages();
+      this.setState({ imgUrls: images });
+    } catch (err) {
+      throw err;
+    }
+  };
 
   delete = async () => {
     try {
-      await __DeleteAll()
-      await this.setImages()
+      await __DeleteAll();
+      await this.setImages();
+    } catch (err) {
+      throw err;
     }
-    catch(err) { throw err }
-  }
-
+  };
 
   render() {
-    
     return (
       <div className="App">
         <header className="App-header">
@@ -45,7 +45,10 @@ class App extends Component {
           </div>
           <div className="pic-buttons">
             <Uploader setImages={this.setImages} />
-            <button className="btn  teal darken-4" onClick={() => this.delete()}>
+            <button
+              className="btn  teal darken-4"
+              onClick={() => this.delete()}
+            >
               <i className="material-icons left">delete_sweep</i>Delete All
             </button>
           </div>
